@@ -1,0 +1,35 @@
+ASSISTENTEC - PAINEL DE KPIs (PI V)
+
+O que foi incluído:
+- Volume de chamados por período (7, 30, 90 dias ou todo o período).
+- Tempo médio entre abertura e primeira resposta registrada.
+- Tempo médio entre abertura e encerramento.
+- Quantidade de chamados pendentes (Aberto ou Em andamento).
+- Distribuição dos chamados por técnico.
+- Cumprimento do SLA para primeira resposta, resolução e indicador geral.
+- Registro separado da primeira resposta no modal de detalhes do chamado.
+
+PRAZOS INICIAIS DE SLA
+Prioridade | Primeira resposta | Resolução
+Crítica    | 15 minutos       | 4 horas
+Alta       | 1 hora           | 8 horas
+Média      | 4 horas          | 24 horas
+Baixa      | 8 horas          | 48 horas
+
+INSTALAÇÃO DA MIGRAÇÃO
+1. Faça uma cópia de segurança do banco de dados assistentec.
+2. Abra o MySQL Workbench e selecione o banco assistentec.
+3. Abra e execute o arquivo MIGRACAO_PAINEL_KPI_PI_V.sql uma única vez.
+4. Reinicie o servidor Node.js (npm start).
+5. Acesse o painel administrativo de chamados e atualize a página.
+
+IMPORTANTE SOBRE OS DADOS
+- A atribuição de um técnico não é considerada primeira resposta.
+- No modal Detalhes do chamado, use "Registrar primeira resposta" somente depois que o cliente realmente tiver recebido a primeira resposta. O registro é feito uma única vez.
+- O encerramento registra o horário automaticamente.
+- Chamados anteriores à migração entram no volume, nos pendentes e na distribuição, mas ficam fora dos tempos médios e percentuais de SLA. O banco antigo armazena apenas a data de abertura/encerramento, não o horário exato; usar meia-noite como horário real distorceria os indicadores.
+- Os prazos são parâmetros iniciais para desenvolvimento e teste, não uma política definitiva de SLA.
+
+VALIDAÇÃO REAL
+Os arquivos JavaScript foram verificados sintaticamente. A integração com o banco deve ser validada no ambiente local após executar a migração, pois não foi possível executar o MySQL do projeto neste ambiente.
+\n\nNAVEGAÇÃO DO PAINEL KPI: o painel foi separado da tela principal de chamados. O botão “Painel KPI” fica ao lado de “Imprimir RAT” e abre public/chamados_adm/painel_kpi.html. Na página de KPIs, “Voltar aos chamados” retorna ao painel administrativo. A cor solicitada foi interpretada como #FFA07A, pois “#ffao7a” contém a letra O, que não é válida em código hexadecimal.\n

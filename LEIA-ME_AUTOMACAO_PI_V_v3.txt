@@ -1,0 +1,29 @@
+ASSISTENTEC - PI V | VERSÃO COM PRIORIZAÇÃO E ATRIBUIÇÃO AUTOMÁTICA
+
+REGRAS IMPLEMENTADAS
+1. Prioridade automática: mantidas as regras objetivas da versão anterior (pessoas afetadas, setores afetados e alternativa temporária).
+2. Hardware: atribuição automática a técnico disponível de Hardware.
+3. Software: atribuição automática a técnico disponível de Software.
+4. Rede: atribuição automática a técnico disponível de Redes/Rede.
+5. Outro: atribuição manual pelo gestor.
+6. Entre técnicos disponíveis da especialidade correta, o sistema escolhe aquele com menos chamados em status Aberto ou Em andamento. Em empate, utiliza o menor ID do técnico para manter critério determinístico.
+7. Ao atribuir um técnico, automaticamente atualiza o status para Em andamento. Chamados encerrados/cancelados não recebem nova atribuição.
+8. O gestor pode marcar técnicos como disponíveis ou indisponíveis na janela Gerenciar Técnicos. Técnicos já cadastrados recebem disponibilidade inicial = 1 após a migração.
+
+INSTALAÇÃO
+1. Faça backup do banco assistentec.
+2. A versão anterior já adicionou as colunas da priorização. NÃO execute novamente MIGRACAO_PRIORIZACAO_PI_V.sql se as quatro colunas já existem.
+3. Execute uma única vez MIGRACAO_ATRIBUICAO_AUTOMATICA_PI_V.sql no banco assistentec.
+4. Copie seu arquivo .env local para a pasta raiz, se necessário. Não compartilhe credenciais.
+5. No terminal da pasta do projeto: npm install
+6. Inicie com: npm start
+7. Acesse o sistema e teste chamados de Hardware, Software, Rede e Outro.
+
+TESTES IMPORTANTES
+- Para Hardware/Software/Rede, clicar em Gerenciar Técnicos tenta atribuir automaticamente o técnico disponível com menor carga ativa.
+- Para Outro, clicar em Gerenciar Técnicos abre a seleção manual.
+- Se não houver técnico disponível na especialidade, o sistema informa que não encontrou candidato; o gestor poderá ajustar a disponibilidade e tentar novamente.
+- A atribuição manual também atualiza o status para Em andamento.
+
+OBSERVAÇÃO
+A migração de atribuição é separada da migração de prioridade. Não execute a mesma migração duas vezes.

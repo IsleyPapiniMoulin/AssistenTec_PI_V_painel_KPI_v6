@@ -1,0 +1,31 @@
+ASSISTENTEC - PI V
+AUTOMACAO DE PRIORIZACAO DE CHAMADOS
+
+1. Faça backup do banco de dados assistentec.
+2. Abra o MySQL Workbench e selecione o banco assistentec.
+3. Execute uma única vez o arquivo MIGRACAO_PRIORIZACAO_PI_V.sql.
+4. Copie a pasta do projeto para seu computador.
+5. Não substitua seu arquivo .env por este pacote. Mantenha suas credenciais locais.
+6. No terminal, dentro da pasta que contém package.json, execute npm install (se necessário).
+7. Inicie com npm start.
+
+O formulário do cliente solicita:
+- quantidade de pessoas afetadas;
+- quantidade de setores afetados;
+- existência de alternativa temporária.
+
+O cliente não escolhe urgência, impacto ou prioridade.
+A prioridade é calculada no backend e exibida no painel do gestor com justificativa.
+
+REGRAS INICIAIS:
+- CRÍTICA: mais de 20 pessoas, 3 ou mais setores e sem alternativa temporária.
+- ALTA: mais de 20 pessoas; ou 3 ou mais setores; ou de 6 a 20 pessoas sem alternativa.
+- MÉDIA: de 6 a 20 pessoas; ou 2 setores; ou ausência de alternativa temporária, quando não se enquadrar em prioridade superior.
+- BAIXA: até 5 pessoas, 1 setor e com alternativa temporária.
+
+As regras são parâmetros iniciais do projeto e podem ser ajustadas conforme validação com a AssistenTec.
+
+VALIDAÇÃO REALIZADA:
+- Sintaxe JavaScript verificada com node --check nos três arquivos alterados.
+- Seis cenários de classificação testados.
+- A integração com o MySQL local não foi executada neste ambiente.
